@@ -100,7 +100,7 @@ function _srrssb_get_button_url($button, $options) {
       $link = rawurldecode($options['url']);
       $hashtags = rawurldecode($options['hashtags']);
       $summary = rawurldecode($options['summary']);
-      $summary = bcl::shorten($summary, 115 - strlen($hashtags));
+      $summary = _srrssb_shorten($summary, 115 - strlen($hashtags));
       $status = rawurlencode($summary . ' ' . $link . ' ' . $hashtags);
       return 'http://twitter.com/home?status=' . $status;
       break;
@@ -383,4 +383,16 @@ function _srrssb_get_button_code($button, $url) {
       ';
       break;
   }
+}
+
+function _srrssb_shorten($string, $length) {
+  $str = str_replace("\n", ' ', $string);
+  $str = str_replace(' <==> ', ' (==) ', $str);
+  $str = strip_tags($str);
+  if (strlen($str) > $length) {
+    $str = substr($str, 0, strrpos(substr($str, 0, $length - 3), ' '));
+    $str .= '...';
+  }
+  $str = str_replace(' (==) ', ' <==> ', $str);
+  return $str;
 }
