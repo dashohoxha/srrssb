@@ -40,7 +40,6 @@ function srrssb($options = array()) {
     'title' => drupal_get_title(),
     'summary' => '',
     'hashtags' => '',
-    'lng' => variable_get('btrClient_translation_lng', 'fr'),
     'pinterest_media' => NULL,
     'youtube_username' => NULL,
     'github_username' => NULL,
